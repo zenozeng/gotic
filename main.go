@@ -11,11 +11,12 @@ import (
 
 const tpl = `package {{.Package}}
 
-import "github.com/gchaincl/gotic/fs"
+var goticFiles map[string]string
 
 func init() {
+  goticFiles = make(map[string]string)
 {{range $file, $data := .Files}}
-	fs.Add("{{$file}}", {{$data}})
+  goticFiles["{{$file}}"] = {{$data}}
 {{end}}
 }
 `
@@ -51,7 +52,7 @@ func main() {
 				panic(err)
 			}
 
-			g.Files[abs] = fmt.Sprintf("%q", data)
+			g.Files[file] = fmt.Sprintf("%q", data)
 		}
 	}
 

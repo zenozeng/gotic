@@ -8,7 +8,8 @@ The utility, `gotic`, takes one or more files and genaraates go code representin
 them (as one or more `[]byte{ ... }`)
 
 # Install
-As usual: `go get github.com/gchaincl/gotic`
+
+`go get github.com/zenozeng/gotic` OR `go get ./...`
 
 # Usage
 

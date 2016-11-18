@@ -11,13 +11,24 @@ import (
 
 const tpl = `package {{.Package}}
 
-var goticFiles map[string]string
+import (
+	"errors"
+)
+
+var files map[string]string
 
 func init() {
-  goticFiles = make(map[string]string)
+  files = make(map[string]string)
 {{range $file, $data := .Files}}
-  goticFiles["{{$file}}"] = {{$data}}
+  files["{{$file}}"] = {{$data}}
 {{end}}
+}
+
+func ReadFile(filename string) ([]byte, error) {
+    if file, ok := files[filename]; ok {
+	return file.data, nil
+    }
+    return errors.New("File Not Found")
 }
 `
 

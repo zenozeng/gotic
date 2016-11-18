@@ -15,20 +15,20 @@ import (
 	"errors"
 )
 
-var files map[string]string
+var files map[string][]byte
 
 func init() {
-  files = make(map[string]string)
+	files = make(map[string][]byte)
 {{range $file, $data := .Files}}
-  files["{{$file}}"] = {{$data}}
+	files["{{$file}}"] = []byte({{$data}})
 {{end}}
 }
 
 func ReadFile(filename string) ([]byte, error) {
-    if file, ok := files[filename]; ok {
-	return file.data, nil
-    }
-    return errors.New("File Not Found")
+	if file, ok := files[filename]; ok {
+		return file, nil
+	}
+	return nil, errors.New("File Not Found")
 }
 `
 
